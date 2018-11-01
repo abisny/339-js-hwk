@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Canvas Example</title>
+</head>
+<body>
+	<canvas id="canvas" width = "800px" height="500px" onmousemove='drawArc(event)'>JS Canvas HWK</canvas>
+
+	<script>
+		var canvas = document.querySelector('canvas');
+		var ctx = canvas.getContext('2d')
+		var strokeSize = 5;
+		var strokeColor = 'blue';
+
+		function drawArc(e) {
+			var pos = getMousePos(e);
+			ctx.beginPath();
+			ctx.moveTo(pos.x, pos.y);
+			ctx.strokeStyle = strokeColor;
+			ctx.lineWidth = strokeSize;
+			ctx.arc(pos.x, pos.y, 20, 0, Math.PI*2);
+			ctx.stroke();
+		}
+		function getMousePos(e) {
+			var rect = canvas.getBoundingClientRect;
+			return {
+				x: e.clientX - rect.left,
+				y: e.clientY - rect.top
+			}
+		}
+		document.body.onkeyup = function keyPress(e) {
+			switch(e.keyCode) {
+				case 32: 				// space
+					ctx.clearRect(0, 0, 800, 500);
+					break;
+				case 38: 				// up arrow
+					strokeSize = 10;
+					break;
+				case 40: 				// down arrow
+					strokeSize = 5;
+					break;
+				case 66: 				// b
+					strokeColor = 'blue';
+					break;
+				case 71: 				// g
+					stokeColor = 'green';
+					break;
+				case 82: 				// r
+					strokeColor = 'red';
+					break;
+				case 89: 				// y
+					strokeColor = 'yellow';
+					break;
+				default:
+					break;
+			}
+		}
+	</script>
+</body>
+</html>
