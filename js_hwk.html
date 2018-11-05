@@ -21,6 +21,11 @@
 		function touchDraw(e) {
 			var x = e.touches[0].screenX;
 			var y = e.touches[0].screenY;
+			ctx.beginPath();
+			ctx.moveTo(x, y);
+			ctx.fillStyle = strokeColor;
+			ctx.arc(x, y, strokeSize, 0, Math.PI*2);
+			ctx.fill();
 		}
 
 		function drawArc(e) {
@@ -29,7 +34,6 @@
 			ctx.beginPath();
 			ctx.moveTo(x, y);
 			ctx.fillStyle = strokeColor;
-			ctx.lineWidth = strokeSize;
 			ctx.arc(x, y, strokeSize, 0, Math.PI*2);
 			ctx.fill();
 		}
