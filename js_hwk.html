@@ -3,9 +3,14 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Canvas Example</title>
+	<style>
+		canvas{
+			border: 2px solid black;
+		}
+	</style>
 </head>
 <body>
-	<canvas id="canvas" width = "800px" height="500px" onmousemove='drawArc(event)'>JS Canvas HWK</canvas>
+	<canvas id="canvas" width = "800" height="500" touchmove='touchDraw(e)' onmousemove='drawArc(event)'>JS Canvas HWK</canvas>
 
 	<script>
 		var canvas = document.querySelector('canvas');
@@ -13,38 +18,42 @@
 		var strokeSize = 5;
 		var strokeColor = 'blue';
 
+		function touchDraw(e) {
+			var x = e.touches[0].screenX;
+			var y = e.touches[0].screenY;
+		}
+
 		function drawArc(e) {
-			var pos = getMousePos(e);
+			var x = e.pageX;
+			var y = e.pageY;
 			ctx.beginPath();
-			ctx.moveTo(pos.x, pos.y);
-			ctx.strokeStyle = strokeColor;
+			ctx.moveTo(x, y);
+			ctx.fillStyle = strokeColor;
 			ctx.lineWidth = strokeSize;
-			ctx.arc(pos.x, pos.y, 20, 0, Math.PI*2);
-			ctx.stroke();
+			ctx.arc(x, y, strokeSize, 0, Math.PI*2);
+			ctx.fill();
 		}
-		function getMousePos(e) {
-			var rect = canvas.getBoundingClientRect;
-			return {
-				x: e.clientX - rect.left,
-				y: e.clientY - rect.top
-			}
-		}
+
 		document.body.onkeyup = function keyPress(e) {
+			console.log("key");
+			console.log(e.keyCode);
 			switch(e.keyCode) {
 				case 32: 				// space
 					ctx.clearRect(0, 0, 800, 500);
 					break;
 				case 38: 				// up arrow
-					strokeSize = 10;
+					strokeSize += 5;
 					break;
 				case 40: 				// down arrow
-					strokeSize = 5;
+					if (strokeSize > 5) {
+						strokeSize -= 5;
+					}
 					break;
 				case 66: 				// b
 					strokeColor = 'blue';
 					break;
 				case 71: 				// g
-					stokeColor = 'green';
+					strokeColor = 'green';
 					break;
 				case 82: 				// r
 					strokeColor = 'red';
@@ -55,6 +64,7 @@
 				default:
 					break;
 			}
+			console.log(strokeSize);
 		}
 	</script>
 </body>
