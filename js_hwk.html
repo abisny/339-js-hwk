@@ -10,7 +10,7 @@
 	</style>
 </head>
 <body>
-	<canvas id="canvas" width = "800" height="500" touchstart='touchDraw(e)' onmousemove='drawArc(event)'>JS Canvas HWK</canvas>
+	<canvas id="canvas" width = "800" height="500" touchmove='touchDraw(event)' onmousemove='drawArc(event)'>JS Canvas HWK</canvas>
 
 	<script>
 		var canvas = document.querySelector('canvas');
@@ -19,16 +19,13 @@
 		var strokeColor = 'blue';
 
 		function touchDraw(e) {
-			for (var i = 0; i < e.changedTouches.length; i++) {
-				console.log(e.changedTouches[i].identifier);
-				var x = e.changedTouches[i].screenX;
-				var y = e.changedTouches[i].screenY;
-				ctx.beginPath();
-				ctx.moveTo(x, y);
-				ctx.fillStyle = strokeColor;
-				ctx.arc(x, y, strokeSize, 0, Math.PI*2);
-				ctx.fill();
-			} // for
+			var x = e.touches[0].screenX;
+			var y = e.touches[0].screenY;
+			ctx.beginPath();
+			ctx.moveTo(x, y);
+			ctx.fillStyle = strokeColor;
+			ctx.arc(x, y, strokeSize, 0, Math.PI*2);
+			ctx.fill();
 		} // touchDraw()
 
 		function drawArc(e) {
